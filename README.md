@@ -14,16 +14,16 @@ Lambda function code written in [Python](https://www.python.org/downloads/).
 
 **OnConnectFunction**
 - `AWS::Serverless::Function` that is invoked on the `ConnectRoute` for establishing the WebSocket connection
-- Function handler is defined in [`onconnect/handler.lambda_handler`]()
+- Function handler is defined in `onconnect/handler.lambda_handler`
 
 **OnDisconnectFunction**
 - `AWS::Serverless::Function` that is invoked on the `DisconnectRoute` for disconnecting the WebSocket connection
-- Function handler is defined in [`ondisconnect/handler.lambda_handler`]()
+- Function handler is defined in `ondisconnect/handler.lambda_handler`
 
 **SendMessageFunction**
 - `AWS::Serverless::Function` that is invoked on the `SendRoute` for sending and receiving messages on the established 
 WebSocket connection
-- Function handler is defined in [`sendmessage/handler.lambda_handler`]()
+- Function handler is defined in `sendmessage/handler.lambda_handler`
 - The `RouteKey` `stocksaction` of the incoming message routes to this Lambda function
 - Example 
 ```
@@ -36,6 +36,17 @@ WebSocket connection
 - The Lambda function will then make an external API call to 
 [Polygon IO API](https://polygon.io/stocks?gclid=CjwKCAjwloCSBhAeEiwA3hVo_SiRY1dM645fBntGSOrsm8XkVLFUiCrSo0D1OpgzhOa_SPex-CNx7hoCFAAQAvD_BwE)
 to retrieve the stock data
+- The `create_report` function will iterate through the list of stocks results and generate a report with the following schema
+```
+"reportData": {
+    "avgStock": float,
+    "minStock": float,
+    "maxStock": float,
+    "minVolume": float,
+    "maxVolume": float
+}
+```
+
 - The function code includes a line of code `time.sleep(31)` to emulate a long running task which
 would take longer than the API Gateway limit
 
