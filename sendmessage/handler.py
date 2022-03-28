@@ -41,6 +41,11 @@ def lambda_handler(event, context):
         stocks_api_response = requests.get(url=base_api_endpoint + requested_ticker + api_endpoint_suffix)
         logger.info(json.dumps(stocks_api_response.json()))
         # create the report
+        if stocks_api_response.json().get('results') is None:
+            websocket_response = WebsocketResponse(status_code=404, report_data=None, message='no results found')
+            client.post_to_connection(ConnectionId=connection_id, Data=websocket_response.json())
+            client.delete_connection(ConnectionId=connection_id)
+            return {'statusCode': 404}
         report_data = create_report(stocks_api_response.json())
         # return the successful results
         websocket_response = WebsocketResponse(status_code=200, report_data=report_data, message='success')
