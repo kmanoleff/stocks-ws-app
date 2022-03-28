@@ -53,7 +53,8 @@ would take longer than the API Gateway limit
 # Testing
 This application is hosted on my personal AWS account.  You can test this function with [Postman](https://www.postman.com) :
 
-- Fire up Postman and create new [WebSocket Request](https://learning.postman.com/docs/sending-requests/supported-api-frameworks/websocket/#creating-websocket-requests)
+- Fire up Postman and Select New > WebSocket Request
+- In the upper left of the request tab, select Raw for a raw WebSocket request
 - Plug in the server URL that's hosted on my AWS - `wss://snouvi2jd3.execute-api.us-east-1.amazonaws.com/Prod`
 - Paste the following in Compose Message.  This will retrieve the stocks for Microsoft (MSFT) :
 ```
